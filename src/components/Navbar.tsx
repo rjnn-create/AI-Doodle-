@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { LayoutGrid, PlusCircle, Compass, User } from 'lucide-react';
+import { LayoutGrid, PlusCircle, Compass, User, Video } from 'lucide-react';
 import { motion } from 'motion/react';
 
 export default function Navbar() {
@@ -7,7 +7,8 @@ export default function Navbar() {
 
   const navItems = [
     { path: '/dashboard', icon: LayoutGrid, label: 'Dashboard' },
-    { path: '/create', icon: PlusCircle, label: 'Create' },
+    { path: '/create', icon: PlusCircle, label: 'Art' },
+    { path: '/animate', icon: Video, label: 'Video' },
     { path: '/explore', icon: Compass, label: 'Explore' },
     { path: '/profile', icon: User, label: 'Profile' },
   ];

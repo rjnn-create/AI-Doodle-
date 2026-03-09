@@ -4,7 +4,7 @@ import { useAuth } from '../context/AuthContext';
 import { getHistory, GeneratedArt } from '../services/historyService';
 import GlassCard from '../components/GlassCard';
 import ParticlesBackground from '../components/ParticlesBackground';
-import { Plus, LogOut, Clock, LayoutGrid, Zap, Sparkles, TrendingUp } from 'lucide-react';
+import { Plus, LogOut, Clock, LayoutGrid, Zap, Sparkles, TrendingUp, Video } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 
 const containerVariants = {
@@ -77,10 +77,19 @@ export default function Dashboard() {
               whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(168, 85, 247, 0.4)' }}
               whileTap={{ scale: 0.95 }}
               onClick={() => navigate('/create')}
-              className="flex-1 md:flex-none flex items-center justify-center px-8 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-bold transition-all shadow-xl shadow-purple-500/20"
+              className="flex-1 md:flex-none flex items-center justify-center px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 rounded-xl font-bold transition-all shadow-xl shadow-purple-500/20"
             >
               <Plus className="w-5 h-5 mr-2" />
-              New Creation
+              New Art
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.05, boxShadow: '0 0 25px rgba(59, 130, 246, 0.4)' }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => navigate('/animate')}
+              className="flex-1 md:flex-none flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl font-bold transition-all shadow-xl shadow-blue-500/20"
+            >
+              <Video className="w-5 h-5 mr-2" />
+              New Video
             </motion.button>
             <button
               onClick={handleLogout}

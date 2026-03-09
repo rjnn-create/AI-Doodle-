@@ -8,6 +8,10 @@ export interface GeneratedArt {
   timestamp: number;
   colorTheme?: string;
   density?: string;
+  aspectRatio?: string;
+  lighting?: string;
+  composition?: string;
+  creativity?: number;
 }
 
 import { get, set } from 'idb-keyval';

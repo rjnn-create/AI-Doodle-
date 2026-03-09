@@ -4,6 +4,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Editor from './pages/Editor';
+import Animator from './pages/Animator';
 import Explore from './pages/Explore';
 import Profile from './pages/Profile';
 import Landing from './pages/Landing';
@@ -41,6 +42,14 @@ export default function App() {
             element={
               <ProtectedRoute>
                 <Editor />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/animate" 
+            element={
+              <ProtectedRoute>
+                <Animator />
               </ProtectedRoute>
             } 
           />

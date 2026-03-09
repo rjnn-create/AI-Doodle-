@@ -9,6 +9,9 @@ export interface StylePreset {
   density: string;
   creativity: number;
   drawingSpeed: number;
+  aspectRatio: "1:1" | "3:4" | "4:3" | "9:16" | "16:9";
+  lighting: string;
+  composition: string;
 }
 
 const PRESETS_KEY = 'doodle_presets';

@@ -19,6 +19,9 @@ export default function Editor() {
   const [colorTheme, setColorTheme] = useState('Default');
   const [density, setDensity] = useState('Medium');
   const [creativity, setCreativity] = useState(0.7);
+  const [aspectRatio, setAspectRatio] = useState<"1:1" | "3:4" | "4:3" | "9:16" | "16:9">("1:1");
+  const [lighting, setLighting] = useState('Default');
+  const [composition, setComposition] = useState('Default');
   const [drawingSpeed, setDrawingSpeed] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [generatedImage, setGeneratedImage] = useState<string | null>(null);
@@ -77,7 +80,10 @@ export default function Editor() {
         referenceImage: referenceImage || undefined,
         colorTheme,
         density,
-        temperature: creativity
+        temperature: creativity,
+        aspectRatio,
+        lighting,
+        composition
       });
       setGeneratedImage(image);
       
@@ -87,7 +93,11 @@ export default function Editor() {
         prompt,
         style,
         colorTheme,
-        density
+        density,
+        aspectRatio,
+        lighting,
+        composition,
+        creativity
       });
 
     } catch (error) {
@@ -144,7 +154,10 @@ export default function Editor() {
       colorTheme,
       density,
       creativity,
-      drawingSpeed
+      drawingSpeed,
+      aspectRatio,
+      lighting,
+      composition
     });
     setPresets([...presets, newPreset]);
     setPresetName('');
@@ -157,6 +170,9 @@ export default function Editor() {
     setDensity(p.density);
     setCreativity(p.creativity);
     setDrawingSpeed(p.drawingSpeed);
+    setAspectRatio(p.aspectRatio || "1:1");
+    setLighting(p.lighting || "Default");
+    setComposition(p.composition || "Default");
     setShowAdvanced(true);
   };
 
@@ -340,7 +356,7 @@ export default function Editor() {
                       exit={{ opacity: 0, height: 0 }}
                       className="overflow-hidden"
                     >
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2 border-t border-white/10">
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2 border-t border-white/10">
                         <div>
                           <label className="block text-sm font-medium text-purple-300 mb-2">Color Theme</label>
                           <select 
@@ -354,6 +370,10 @@ export default function Editor() {
                             <option value="Monochrome">Monochrome</option>
                             <option value="Vibrant">Vibrant</option>
                             <option value="Earth Tones">Earth Tones</option>
+                            <option value="Cinematic">Cinematic</option>
+                            <option value="Vintage">Vintage</option>
+                            <option value="Noir">Noir</option>
+                            <option value="Pop Art">Pop Art</option>
                           </select>
                         </div>
                         <div>
@@ -363,22 +383,61 @@ export default function Editor() {
                             onChange={(e) => setDensity(e.target.value)}
                             className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:ring-1 focus:ring-purple-500"
                           >
+                            <option value="Ultra-Low">Ultra-Low</option>
                             <option value="Low">Low (Minimalist)</option>
                             <option value="Medium">Medium (Balanced)</option>
                             <option value="High">High (Intricate)</option>
+                            <option value="Ultra-High">Ultra-High</option>
                           </select>
                         </div>
-
-                        {/* Sliders */}
-                        <div className="col-span-1 md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
-                          <div>
-                            <div className="flex justify-between mb-2">
-                              <label className="flex items-center text-sm font-medium text-purple-300">
-                                <BrainCircuit className="w-4 h-4 mr-2" />
-                                AI Creativity
-                              </label>
-                              <span className="text-xs text-gray-400">{Math.round(creativity * 100)}%</span>
-                            </div>
+                        <div>
+                          <label className="block text-sm font-medium text-purple-300 mb-2">Aspect Ratio</label>
+                          <select 
+                            value={aspectRatio}
+                            onChange={(e) => setAspectRatio(e.target.value as any)}
+                            className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:ring-1 focus:ring-purple-500"
+                          >
+                            <option value="1:1">1:1 (Square)</option>
+                            <option value="16:9">16:9 (Landscape)</option>
+                            <option value="9:16">9:16 (Portrait)</option>
+                            <option value="4:3">4:3 (Classic)</option>
+                            <option value="3:4">3:4 (Tall)</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-purple-300 mb-2">Lighting</label>
+                          <select 
+                            value={lighting}
+                            onChange={(e) => setLighting(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:ring-1 focus:ring-purple-500"
+                          >
+                            <option value="Default">Default</option>
+                            <option value="Cinematic">Cinematic</option>
+                            <option value="Natural">Natural</option>
+                            <option value="Studio">Studio</option>
+                            <option value="Neon">Neon</option>
+                            <option value="Dramatic">Dramatic</option>
+                            <option value="Soft">Soft</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-purple-300 mb-2">Composition</label>
+                          <select 
+                            value={composition}
+                            onChange={(e) => setComposition(e.target.value)}
+                            className="w-full bg-white/5 border border-white/10 rounded-lg p-2 text-white focus:outline-none focus:ring-1 focus:ring-purple-500"
+                          >
+                            <option value="Default">Default</option>
+                            <option value="Close-up">Close-up</option>
+                            <option value="Wide Shot">Wide Shot</option>
+                            <option value="Bird's Eye">Bird's Eye</option>
+                            <option value="Rule of Thirds">Rule of Thirds</option>
+                            <option value="Symmetrical">Symmetrical</option>
+                          </select>
+                        </div>
+                        <div>
+                          <label className="block text-sm font-medium text-purple-300 mb-2">Creativity Level</label>
+                          <div className="flex items-center gap-3 bg-white/5 border border-white/10 rounded-lg p-2">
                             <input 
                               type="range" 
                               min="0" 
@@ -386,9 +445,14 @@ export default function Editor() {
                               step="0.1" 
                               value={creativity} 
                               onChange={(e) => setCreativity(parseFloat(e.target.value))}
-                              className="w-full h-2 bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-500"
+                              className="flex-1 h-1.5 bg-white/10 rounded-lg appearance-none cursor-pointer accent-purple-500"
                             />
+                            <span className="text-xs text-gray-400 w-8">{Math.round(creativity * 100)}%</span>
                           </div>
+                        </div>
+
+                        {/* Sliders */}
+                        <div className="col-span-1 md:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
                           <div>
                             <div className="flex justify-between mb-2">
                               <label className="flex items-center text-sm font-medium text-purple-300">
