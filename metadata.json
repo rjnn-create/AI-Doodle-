@@ -1,0 +1,7 @@
+{
+  "name": "AI Doodle Art",
+  "description": "Turn your thoughts into art with AI-powered doodle generation.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
